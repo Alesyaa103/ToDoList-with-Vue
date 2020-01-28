@@ -23,31 +23,41 @@
                 </header>
                 <div class=progress__text>Tasks - {{tasksDone}}/{{items.length}}</div>
                 <div class="progress">
-                    <div class="progress-bar" role="progressbar" :style=" 'width:' +progress +'%' " aria-valuemin="0" aria-valuemax="100"> {{progress}}%
+                    <div class="progress-bar" role="progressbar" :style=" 'width:' +progress +'%' " aria-valuemin="0"
+                        aria-valuemax="100"> {{progress}}%
                     </div>
                 </div>
                 <div class="nav">
                     <div class="nav__container btn-group">
-                        <button type="button" class="btn button btn-outline-primary" v-on:click.prevent= "showAll">All</button>
-                        <button type="button" class="btn button btn-outline-primary" v-on:click.prevent= "showDone">Done</button>
-                        <button type="button" class="btn button btn-outline-primary" v-on:click.prevent= "ShowUndone">Undone</button>
+                        <button type="button" class="btn button btn-outline-primary"
+                            v-on:click.prevent="itemStatus('All')">All</button>
+                        <button type="button" class="btn button btn-outline-primary"
+                            v-on:click.prevent="itemStatus('Done')">Done</button>
+                        <button type="button" class="btn button btn-outline-primary"
+                            v-on:click.prevent="itemStatus('Undone')">Undone</button>
                     </div>
-
                     <div class="nav__container btn-group">
-                        <button type="button" class="btn button btn-outline-primary">Ascending</button>
-                        <button type="button" class="btn button btn-outline-primary">Descending</button>
+                        <button type="button" class="btn button btn-outline-primary"
+                            v-on:click.prevent="orderFilter('Ascending')">Ascending</button>
+                        <button type="button" class="btn button btn-outline-primary"
+                            v-on:click.prevent="orderFilter('Descending')">Descending</button>
                     </div>
-                    <input type="text" v-model="search" placeholder="Search..." class="nav__search form-control" autofocus>
+                    <input type="text" v-model="search" placeholder="Search..." class="nav__search form-control"
+                        autofocus>
                 </div>
                 <ul class="list">
                     <li class="create">
-                        <button class="btn col-xs create__button" type="submit" name="button" v-on:click.prevent= "addItem">
+                        <button class="btn col-xs create__button" type="submit" name="button"
+                            v-on:click.prevent="addItem">
                             <i class="fas fa-window-maximize"></i>
                         </button>
-                        <input type="text" id="textInItem" class="form-control create__input" placeholder="Add your task" v-model="newItem.text">
-                        <input type="number" id="priorityInItem" class="form-control create__priority" v-model="newItem.priority">
+                        <input type="text" id="textInItem" class="form-control create__input"
+                            placeholder="Add your task" v-model="newItem.text">
+                        <input type="number" id="priorityInItem" class="form-control create__priority" min='0'
+                            v-model="newItem.priority">
                     </li>
-                    <item @delete_item="deleteThisItem(index)" :data="data" v-for="(data,index) in items" :key="index" ></item>
+                    <item @delete_item="deleteThisItem(index)" :item="item" v-for="(item,index) in visibleItems"
+                        :key="index"></item>
             </div>
         </div>
     </div>
