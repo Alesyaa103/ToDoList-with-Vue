@@ -17,7 +17,7 @@ Vue.component('item', {
 const app = new Vue({
   el: '#app',
   data: {
-    search: "",
+    search: '',
     tittle: 'ToDo',
     newItem: {
       text: '',
@@ -41,14 +41,14 @@ const app = new Vue({
       }
     },
     orderFilter(order) {
-      if(order == 'Ascending') {
-        this.items = this.items.sort((a, b) => +a.priotity > +b.priotity ? 1: -1);
-      } else if (order == 'Descending') {
-        this.items = this.items.sort((a, b) => +b.priotity < +a.priotity ? 1: -1);
+      if (order === 'Ascending') {
+        this.items = this.items.sort((a, b) => (+a.priotity > +b.priotity ? 1 : -1));
+      } else if (order === 'Descending') {
+        this.items = this.items.sort((a, b) => (+b.priotity < +a.priotity ? 1 : -1));
       }
     },
     itemStatus(status) {
-      this.status = status
+      this.status = status;
     },
     deleteThisItem(index) {
       this.items.splice(index, 1);
@@ -56,20 +56,20 @@ const app = new Vue({
   },
   computed: {
     progress() {
-      return this.items.length > 0 ? Math.round(this.tasksDone / this.items.length * 100) : 0;
+      return this.items.length > 0 ? Math.round((this.tasksDone / this.items.length) * 100) : 0;
     },
     tasksDone() {
       return this.items.filter((item) => item.completed).length;
     },
     visibleItems() {
       let arr = [];
-      arr = this.items.filter(el => el.text.toLowerCase().includes(this.search))
-      if (this.status == 'Done') {
-        arr = arr.filter(el => el.completed);
-      } else if (this.status == 'Undone') {
-        arr = arr.filter(el => !el.completed);
+      arr = this.items.filter((el) => el.text.toLowerCase().includes(this.search));
+      if (this.status === 'Done') {
+        arr = arr.filter((el) => el.completed);
+      } else if (this.status === 'Undone') {
+        arr = arr.filter((el) => !el.completed);
       }
       return arr;
-    }
+    },
   },
 });
